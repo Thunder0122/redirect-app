@@ -2,6 +2,8 @@ const http = require('http');
 const url = require('url');
 const fs = require('fs');
 
+
+//Create server for html
 http.createServer(function (req, res) {
   const q = url.parse(req.url, true);
   let filename = `.${q.path}.html`;
